@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AutoParts</title>
   <link rel="stylesheet" href="css/inicio.css">
 </head>
+
 <body>
-  
+
   <header>
     <div class="logo-container">
       <div class="logo">🔧</div>
       <h1>AutoParts</h1>
     </div>
-    
+
     <div class="header-buttons">
       <button id="btn-panel">➕ Agregar Producto</button>
       <div id="carrito-container">
@@ -22,6 +24,10 @@
           <h3>Carrito de Compras</h3>
           <ul id="lista-carrito"></ul>
           <p>Total: $<span id="total">0</span></p>
+
+          <button id="btn-finalizar" class="btn-finalizar">✔ Finalizar Compra</button>
+          <p id="mensaje-compra" class="mensaje-compra"></p>
+
         </div>
       </div>
     </div>
@@ -35,7 +41,7 @@
         <h2>📦 Nuevo Producto</h2>
         <button class="btn-cerrar" id="btn-cerrar">✕</button>
       </div>
-      
+
       <form id="form-producto">
         <div class="form-group">
           <label for="imagen">Imagen del producto</label>
@@ -79,10 +85,10 @@
   </main>
 
 
-  <footer>
-    <p>Autor: Santino De Santis</p>
-  </footer>
 
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   <script src="js/inicio.js"></script>
 </body>
+
 </html>

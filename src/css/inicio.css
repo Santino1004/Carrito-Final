@@ -73,6 +73,29 @@ header {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.04);
 }
+.btn-finalizar {
+  width: 100%;
+  padding: 10px;
+  background: #28a745;
+  border: none;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-finalizar:hover {
+  background: #218838;
+}
+
+.mensaje-compra {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #28a745;
+  text-align: center;
+}
+
 
 .logo+h1 {
   font-size: 1.25rem;
