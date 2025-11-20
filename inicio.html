@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoParts - Repuestos</title>
+  <link rel="stylesheet" href="css/inicio.css">
+</head>
+<body>
+  
+  <header>
+    <div class="logo-container">
+      <div class="logo">🔧</div>
+      <h1>AutoParts</h1>
+    </div>
+    
+    <div class="header-buttons">
+      <button id="btn-panel">➕ Agregar Producto</button>
+      <div id="carrito-container">
+        <button id="btn-carrito">🛒 <span id="contador">0</span></button>
+        <div id="carrito">
+          <h3>Carrito de Compras</h3>
+          <ul id="lista-carrito"></ul>
+          <p>Total: $<span id="total">0</span></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- PANEL NUEVO PRODUCTO -->
+  <div class="modal-overlay" id="modal-panel">
+    <div class="panel-control">
+      <div class="panel-header">
+        <h2>📦 Nuevo Producto</h2>
+        <button class="btn-cerrar" id="btn-cerrar">✕</button>
+      </div>
+      
+      <form id="form-producto">
+        <div class="form-group">
+          <label for="imagen">Imagen del producto</label>
+          <div class="file-input-wrapper">
+            <input type="file" id="imagen" accept="image/*" required>
+            <label for="imagen" class="file-input-label">
+              📷 Seleccionar imagen
+            </label>
+          </div>
+          <img id="preview" class="preview-imagen" alt="Vista previa">
+        </div>
+
+        <div class="form-group">
+          <label for="nombre">Nombre del producto</label>
+          <input type="text" id="nombre" placeholder="Ej: Filtro de aceite premium" required>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" placeholder="Describe las características del producto..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="stock">Stock disponible</label>
+          <input type="number" id="stock" min="0" placeholder="Cantidad disponible" required>
+        </div>
+
+        <div class="form-group">
+          <label for="precio">Precio ($)</label>
+          <input type="number" id="precio" min="0" step="0.01" placeholder="0.00" required>
+        </div>
+
+        <button type="submit" class="btn-submit">✅ Agregar Producto</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR DE PRODUCTOS -->
+  <main id="productos-container" class="lista-productos">
+
+  </main>
+
+  <script src="js/inicio.js"></script>
+</body>
+</html>
