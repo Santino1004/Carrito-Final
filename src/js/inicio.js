@@ -1,18 +1,13 @@
-// -----------------------------
-// JS completo: productos, carrito, modal y forms
-// -----------------------------
-
-// DATOS INICIALES (ejemplos)
 let productos = [
   { id: 1, nombre: "Filtro de Aceite Premium", descripcion: "Filtro de alta calidad para máxima protección.", precio: 2500, imagen: "img/filtropremium.png", stock: 15 },
   { id: 2, nombre: "Pastillas de Freno", descripcion: "Juego completo de pastillas cerámicas.", precio: 4800, imagen: "img/pastillas-frenos.png", stock: 8 },
   { id: 3, nombre: "Batería 12V 75Ah", descripcion: "Batería de alto rendimiento, 3 años garantía.", precio: 8500, imagen: "img/bateria.png", stock: 5 }
 ];
 
-// Carrito
+
 let carrito = JSON.parse(localStorage.getItem("carrito")) || {};
 
-// --- Selectores DOM ---
+
 const container = document.getElementById("productos-container");
 
 const listaCarrito = document.getElementById("lista-carrito");
@@ -22,7 +17,7 @@ const contador = document.getElementById("contador");
 const carritoDiv = document.getElementById("carrito");
 const btnCarrito = document.getElementById("btn-carrito");
 
-// Modal / Form
+
 const btnPanel = document.getElementById("btn-panel");
 const modalPanel = document.getElementById("modal-panel");
 const btnCerrar = document.getElementById("btn-cerrar");
@@ -30,26 +25,22 @@ const formProducto = document.getElementById("form-producto");
 const inputImagen = document.getElementById("imagen");
 const preview = document.getElementById("preview");
 
-// Util: obtener siguiente id único
+
 function nextId() {
   return productos.length ? Math.max(...productos.map(p => p.id)) + 1 : 1;
 }
 
-// -----------------------------
-// Mostrar / Ocultar carrito
-// -----------------------------
+
 btnCarrito.addEventListener("click", () => carritoDiv.classList.toggle("activo"));
 
-// Cerrar carrito al click fuera (opcional)
+
 document.addEventListener("click", (e) => {
   if (!e.target.closest("#carrito-container") && !e.target.closest("#carrito")) {
     carritoDiv.classList.remove("activo");
   }
 });
 
-// -----------------------------
-// Render productos (tarjetas)
-// -----------------------------
+
 function renderProductos() {
   container.innerHTML = productos.map(p => {
     const stockBadge = p.stock === 0 ? `<span class="stock-badge agotado">Agotado</span>` :
@@ -71,14 +62,12 @@ function renderProductos() {
   }).join("");
 }
 
-// -----------------------------
-// Carrito: agregar / restar / eliminar
-// -----------------------------
+
 function agregarCarrito(id) {
   const producto = productos.find(p => p.id === id);
   if (!producto || producto.stock <= 0) return;
 
-  // reducir stock en inventario
+
   producto.stock--;
 
   if (!carrito[id]) carrito[id] = { producto, cantidad: 1 };
@@ -86,8 +75,8 @@ function agregarCarrito(id) {
 
   guardarCarrito();
   renderCarrito();
-  renderProductos(); // actualizar badges / botones
-  // feedback breve en el botón panel (si existe)
+  renderProductos(); 
+
   if (btnPanel) {
     btnPanel.textContent = '✅ Producto agregado!';
     setTimeout(() => btnPanel.textContent = '➕ Agregar Producto', 1600);
@@ -97,7 +86,7 @@ function agregarCarrito(id) {
 function restarCarrito(id) {
   if (!carrito[id]) return;
   carrito[id].cantidad--;
-  // devolver stock al inventario
+
   const prod = productos.find(p => p.id === id);
   if (prod) prod.stock++;
 
@@ -110,7 +99,7 @@ function restarCarrito(id) {
 
 function eliminarProducto(id) {
   if (!carrito[id]) return;
-  // devolver cantidad al stock
+
   const prod = productos.find(p => p.id === id);
   if (prod) prod.stock += carrito[id].cantidad;
 
@@ -120,9 +109,7 @@ function eliminarProducto(id) {
   renderProductos();
 }
 
-// -----------------------------
-// Render carrito
-// -----------------------------
+
 function renderCarrito() {
   const items = Object.values(carrito);
   if (!items.length) {
@@ -161,18 +148,16 @@ function renderCarrito() {
   contador.textContent = cantidadTotal;
 }
 
-// -----------------------------
-// Delegación de eventos (carrito y agregar)
-// -----------------------------
+
 document.addEventListener("click", (e) => {
-  // botones de agregar en tarjetas
+
   if (e.target.classList.contains("agregar-carrito")) {
     const id = Number(e.target.dataset.id);
     agregarCarrito(id);
     return;
   }
 
-  // carrito controls (sumar/restar/eliminar)
+
   if (e.target.classList.contains("btn-sumar")) {
     const id = Number(e.target.dataset.id);
     agregarCarrito(id);
@@ -190,16 +175,12 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// -----------------------------
-// Guardado en localStorage
-// -----------------------------
+
 function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// -----------------------------
-// Modal: abrir / cerrar / preview imagen
-// -----------------------------
+
 function openModal() { modalPanel.classList.add("activo"); }
 function closeModal() {
   modalPanel.classList.remove("activo");
@@ -211,12 +192,12 @@ function closeModal() {
 btnPanel && btnPanel.addEventListener("click", openModal);
 btnCerrar && btnCerrar.addEventListener("click", closeModal);
 
-// cerrar modal si clickeás fuera (overlay)
+/
 modalPanel && modalPanel.addEventListener("click", (e) => {
   if (e.target === modalPanel) closeModal();
 });
 
-// preview imagen
+
 inputImagen && inputImagen.addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -228,40 +209,36 @@ inputImagen && inputImagen.addEventListener("change", (e) => {
   reader.readAsDataURL(file);
 });
 
-// -----------------------------
-// Submit: crear nuevo producto desde el panel
-// -----------------------------
+
 formProducto && formProducto.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // recoger valores
+
   const nombre = document.getElementById("nombre").value.trim();
   const descripcion = document.getElementById("descripcion").value.trim();
   const stock = parseInt(document.getElementById("stock").value) || 0;
   const precio = parseFloat(document.getElementById("precio").value) || 0;
   const imagenSrc = preview && preview.src ? preview.src : "img/placeholder.png";
 
-  // id único
+
   const id = nextId();
 
-  // crear objeto producto
+
   const nuevo = { id, nombre, descripcion, precio, imagen: imagenSrc, stock };
 
   productos.push(nuevo);
 
-  // re-renderizar y cerrar modal
+
   renderProductos();
   closeModal();
 
-  // animación/feedback en botón panel
+
   if (btnPanel) {
     btnPanel.textContent = '✅ Producto agregado!';
     setTimeout(() => btnPanel.textContent = '➕ Agregar Producto', 1600);
   }
 });
 
-// -----------------------------
-// Inicializar UI
-// -----------------------------
+
 renderProductos();
 renderCarrito();
