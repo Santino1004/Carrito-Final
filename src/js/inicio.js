@@ -192,7 +192,6 @@ function closeModal() {
 btnPanel && btnPanel.addEventListener("click", openModal);
 btnCerrar && btnCerrar.addEventListener("click", closeModal);
 
-/
 modalPanel && modalPanel.addEventListener("click", (e) => {
   if (e.target === modalPanel) closeModal();
 });
@@ -242,3 +241,4 @@ formProducto && formProducto.addEventListener("submit", (e) => {
 
 renderProductos();
 renderCarrito();
+
